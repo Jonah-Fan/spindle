@@ -1,0 +1,82 @@
+interceptors:
+  - name: trace-annotation
+    spanKind: CUSTOM
+    typeMatcher:
+      declaresMethod:
+        isAnnotatedWith: net.thewesthill.trace.Trace
+    adviceRules:
+      - methodMatcher:
+          isAnnotatedWith: net.thewesthill.trace.Trace
+        advice: net.thewesthill.agent.advice.MethodAdvice
+
+  - name: servlet
+    typeMatcher:
+      anyOf:
+        - nameEndsWith: .HttpServlet
+        - nameEndsWith: $HttpServlet
+    adviceRules:
+      - methodMatcher:
+          anyOfNames: [service, doDispatch]
+          takesArgumentAt: 0
+          takesArgumentNameEndsWith: .HttpServletRequest
+        advice: net.thewesthill.agent.advice.ServletAdvice
+
+  - name: spring-mvc
+    spanKind: MVC
+    typeMatcher:
+      declaresMethod:
+        anyOfAnnotations:
+          - org.springframework.web.bind.annotation.RequestMapping
+          - org.springframework.web.bind.annotation.GetMapping
+          - org.springframework.web.bind.annotation.PostMapping
+          - org.springframework.web.bind.annotation.PutMapping
+          - org.springframework.web.bind.annotation.DeleteMapping
+          - org.springframework.web.bind.annotation.PatchMapping
+    adviceRules:
+      - methodMatcher:
+          anyOfAnnotations:
+            - org.springframework.web.bind.annotation.RequestMapping
+            - org.springframework.web.bind.annotation.GetMapping
+            - org.springframework.web.bind.annotation.PostMapping
+            - org.springframework.web.bind.annotation.PutMapping
+            - org.springframework.web.bind.annotation.DeleteMapping
+            - org.springframework.web.bind.annotation.PatchMapping
+        advice: net.thewesthill.agent.advice.MethodAdvice
+
+  - name: jdbc
+    typeMatcher:
+      anyOfSuperTypes:
+        - java.sql.Connection
+        - java.sql.PreparedStatement
+    adviceRules:
+      - methodMatcher:
+          named: prepareStatement
+          takesArguments: 1
+          takesArgumentAt: 0
+          takesArgumentType: java.lang.String
+        advice: net.thewesthill.agent.advice.JdbcPrepareAdvice
+      - methodMatcher:
+          anyOfNames: [execute, executeQuery, executeUpdate, executeBatch, executeLargeUpdate]
+        advice: net.thewesthill.agent.advice.JdbcExecuteAdvice
+
+  - name: orm
+    spanKind: ORM
+    typeMatcher:
+      anyOf:
+        - named: org.apache.ibatis.binding.MapperMethod
+        - named: org.apache.ibatis.session.SqlSessionTemplate
+        - named: org.hibernate.internal.SessionImpl
+        - named: org.hibernate.engine.spi.SessionImplementor
+    adviceRules:
+      - methodMatcher:
+          anyOfNames: [execute, selectList, selectOne, selectMap, selectCursor,
+                       insert, update, delete, find, get]
+        advice: net.thewesthill.agent.advice.MethodAdvice
+
+  - name: thread-pool
+    typeMatcher:
+      named: java.util.concurrent.ThreadPoolExecutor
+    adviceRules:
+      - methodMatcher:
+          anyOfNames: [execute, submit, executeRunnable, submitRunnable, submitCallable]
+        advice: net.thewesthill.agent.advice.ThreadPoolAdvice

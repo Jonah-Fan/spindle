@@ -1,0 +1,32 @@
+# ---- Build output (Maven) ----
+target/
+**/target/
+
+# ---- Spindle runtime artifacts ----
+# the embedded SQLite trace store and its WAL/SHM sidecars
+trace.db
+trace.db-shm
+trace.db-wal
+*.db
+# rotating agent logs produced at runtime
+logs/
+*.log
+app.log
+
+# ---- IDE / editor ----
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.swp
+*~
+
+# ---- OS junk ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Maven release / dependency-reduced POM ----
+dependency-reduced-pom.xml
+release.properties
