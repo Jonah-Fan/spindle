@@ -22,13 +22,13 @@ import net.thewesthill.agent.config.compiler.util.MatcherUtils;
  * are skipped rather than voiding the result. The {@link MethodMatcherDef#anyOfNames} and
  * {@link MethodMatcherDef#anyOfAnnotations} lists are OR-combined internally via
  * {@link MatcherUtils#orAny} before being AND-folded. Used by
- * {@link net.thewesthill.agent.config.MatcherCompiler} for each advice entry's method matcher and by
- * {@link net.thewesthill.agent.config.compiler.type.DeclaresMethodTypeCompiler} to evaluate a
+ * {@link net.thewesthill.agent.config.MatcherCompiler} for each advice entry's method matcher and
+ * by {@link net.thewesthill.agent.config.compiler.type.DeclaresMethodTypeCompiler} to evaluate a
  * "declares-method" type criterion.
  *
  * @author Jonah Fan
- * @since 1.0.0
  * @see MethodMatcherCompiler
+ * @since 1.0.0
  */
 public class DefaultMethodMatcherCompiler implements MethodMatcherCompiler {
 
@@ -37,7 +37,7 @@ public class DefaultMethodMatcherCompiler implements MethodMatcherCompiler {
    *
    * @param def the method-matcher definition, or {@code null}
    * @return the combined method matcher, or {@code null} if {@code def} is {@code null} or sets no
-   *         criterion
+   * criterion
    */
   @Override
   public Junction<MethodDescription> compile(MethodMatcherDef def) {
@@ -49,6 +49,7 @@ public class DefaultMethodMatcherCompiler implements MethodMatcherCompiler {
 
     // named
     if (def.named != null) {
+      //noinspection ConstantValue
       result = MatcherUtils.and(result, named(def.named));
     }
 
