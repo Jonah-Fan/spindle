@@ -8,6 +8,7 @@
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![Java](https://img.shields.io/badge/Java-17.0.2-orange?logo=openjdk&logoColor=white)](https://openjdk.org/)
 [![Build](https://img.shields.io/badge/Maven-3.9.16-c71a36?logo=apache-maven&logoColor=white)](https://maven.apache.org/)
+[![GitHub release](https://img.shields.io/github/v/release/Jonah-Fan/spindle?logo=github)](https://github.com/Jonah-Fan/spindle/releases)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 Spindle is a self-contained Java bytecode-level distributed tracing agent. Attach one shaded jar with `-javaagent` and Spindle records call chains — method, JDBC, thread-pool, and Spring MVC spans — into an embedded SQLite database, then serves them back through a built-in HTTP viewer. No external collector, backend, or dashboard required: one jar, open a browser, see your traces.
@@ -23,6 +24,7 @@ Spindle is free and open source software.
   - [Configurations](#configurations)
   - [Runtime](#runtime)
 - [Getting started](#getting-started)
+  - [Download](#download)
   - [Attaching the agent](#attaching-the-agent)
   - [Viewing traces](#viewing-traces)
   - [Annotating code with @Trace](#annotating-code-with-trace)
@@ -74,6 +76,14 @@ Rather than recording traces in the calling thread, Spindle separates the hot pa
 # Getting started
 Follow these steps to attach Spindle to a running JVM and view traces. You can also [build Spindle locally from source](#building-from-source).
 
+## Download
+Grab the latest release from [GitHub Releases](https://github.com/Jonah-Fan/spindle/releases). The dist zip bundles the two jars you need, or download them directly:
+
+- `spindle-agent.jar` — the shaded agent jar; pass it to `-javaagent`.
+- `spindle-agent-ctx.jar` — the bootstrap context jar; keep it next to the agent jar (the agent manifest references it via `Boot-Class-Path`).
+
+Spindle is **not** published to Maven Central; the GitHub release is the source of artifacts.
+
 ## Attaching the agent
 Pass the shaded agent jar on the JVM command line. With the demo jar built, from the repository root:
 
@@ -123,7 +133,7 @@ The annotation is a compile-time-only dependency — your application imports `s
 The following steps build Spindle from the source code in this repository.
 
 ## Installing dependencies
-Spindle builds with **Java 17+** and **Maven**. Install a JDK 17 or later and Maven 3.6+, then verify:
+Spindle builds with **Java 17+** and **Maven 3.9+**. Install a JDK 17 or later and Maven 3.9 or later, then verify:
 
 ```bash
 java -version
@@ -137,7 +147,7 @@ mvn -version
 Clone this repository into your development directory.
 
 ```bash
-git clone <your-repo-url> spindle
+git clone https://github.com/Jonah-Fan/spindle.git spindle
 cd spindle
 ```
 
@@ -145,10 +155,10 @@ cd spindle
 From the repository root, build every module:
 
 ```bash
-mvn clean package
+mvn clean verify
 ```
 
-This compiles `spindle-api`, `spindle-agent`, and `spindle-demo`, then shades the agent and repackages the demo.
+This compiles `spindle-api`, `spindle-agent`, and `spindle-demo`, runs the tests, then shades the agent and repackages the demo. CI builds on JDK 17 and 21 to cover both the supported minimum and current LTS.
 
 ## Location of the artifacts
 After a successful build, the artifacts land at:
@@ -210,10 +220,10 @@ The interceptor-rules YAML declares which methods to trace. In development the l
 > Inspect `spindle-agent/src/main/resources/defaults-interceptors.yml` for the full rule syntax — type matchers (`named`, `nameEndsWith`, `anyOfSuperType`, `declaresMethod`), method matchers (`named`, `anyOfNames`, `isAnnotatedWith`, `takesArguments`), and the advice class each rule binds.
 
 # Asking questions and reporting issues
-Open a GitHub issue for bug reports and feature requests. Please include the Spindle version, the `-javaagent` arguments you used, the relevant startup log lines, and a minimal reproducer.
+Open a GitHub issue for bug reports and feature requests. Please include the Spindle version, the `-javaagent` arguments you used, the relevant startup log lines, and a minimal reproducer. For suspected security vulnerabilities, follow the private reporting process in [SECURITY.md](SECURITY.md) instead of opening a public issue.
 
 # Contributing code
-Contributions are welcome. Please open an issue first to discuss the change you intend to make, then submit a pull request against the default branch. Keep instrumentation failures non-propagating: any new advice must catch and record its own errors rather than throwing into the host application.
+Contributions are welcome. Please open an issue first to discuss the change you intend to make, then submit a pull request against the default branch. See [CONTRIBUTING.md](CONTRIBUTING.md) for build steps, test expectations, and the instrumentation conventions. In short: keep instrumentation failures non-propagating — any new advice must catch and record its own errors rather than throwing into the host application.
 
 # Additional help and resources
 - The Javadoc on `net.thewesthill.agent.TraceAgent` is the entry point for the agent's lifecycle and internals.
