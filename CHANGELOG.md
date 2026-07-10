@@ -24,7 +24,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Baseline automated test suite: unit tests for `AgentConfig`, `W3CPropagator`, and the
   config/matcher compilation pipeline, plus an integration smoke test covering the
   reporter → SQLite → viewer → HTTP chain.
-- Distributed via GitHub Releases (`spindle-agent.jar`, `spindle-agent-ctx.jar`, `spindle-1.0.0.zip`).
+- Distributed via GitHub Releases only (not published to Maven Central): `spindle-agent.jar`,
+  `spindle-agent-ctx.jar`, `spindle-agent-sources.jar`, `spindle-agent-javadoc.jar`, and the
+  `spindle-1.0.0.zip` convenience bundle.
 
 ### Fixed
 - `TraceAgent.shutdown()` now logs the failing resource's class name instead of
@@ -32,5 +34,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - The shaded agent jar now bundles a relocated `slf4j-nop` provider so that the `slf4j-api` pulled
   in by SQLite JDBC finds a binding at runtime, eliminating the "No SLF4J providers were found"
   startup warning.
-- Third-party `NOTICE` files are now merged into the shaded jar via
-  `ApacheNoticeResourceTransformer`, restoring attribution that the shade filter had stripped.
+- Third-party license attribution in the shaded agent jar: the shade filter no longer strips
+  `META-INF/LICENSE` / `LICENSE.txt`, so ByteBuddy (Apache 2.0, with its bundled-ASM notice),
+  SLF4J (MIT), and SQLite JDBC license files are retained raw. ByteBuddy's `NOTICE` is merged via
+  `ApacheNoticeResourceTransformer`; the two overlapping ByteBuddy `LICENSE` copies are deduped to
+  the full one, and ASM is attributed as its own BSD-3-Clause entry in `NOTICE.md`.
