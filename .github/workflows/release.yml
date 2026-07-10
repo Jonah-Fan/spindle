@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write   # softprops/action-gh-release creates the release and uploads assets
+  contents: write
 
 jobs:
   release:
