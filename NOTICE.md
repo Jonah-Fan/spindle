@@ -10,21 +10,28 @@ Copyright © 2026 Jonah Fan. Licensed under the [MIT License](LICENSE).
 
 ## Third-party software bundled in the shaded agent jar
 
-The `spindle-agent` shaded jar relocates and repackages the following libraries. Their copyright
-notices are merged into the jar's `META-INF/NOTICE` at build time via the Maven Shade Plugin's
-`ApacheNoticeResourceTransformer`. This file records the attributions here as well.
+The `spindle-agent` shaded jar relocates and repackages the following libraries. At build time the
+shaded jar retains each library's own `META-INF/LICENSE` / `LICENSE.txt` where one is shipped, and
+the Maven Shade Plugin's `ApacheNoticeResourceTransformer` merges any `META-INF/NOTICE` files into
+the jar's `META-INF/NOTICE`. In practice only ByteBuddy ships a `NOTICE`, so the merged `META-INF/NOTICE`
+contains just its entry; libraries that do not ship a `NOTICE`/`LICENSE` inside their jar (Gson,
+SnakeYAML) are attributed here by their known license and upstream link. This file records all of
+those attributions in one place.
 
 ### ByteBuddy — Apache License 2.0
 - <https://bytebuddy.net/>
 - Copyright © 2014 – Present Rafael Winterhalter.
 - Bundled for runtime bytecode rewriting and relocated to `net.thewesthill.agent.shaded.bytebuddy`.
+- Its `META-INF/NOTICE` and `META-INF/LICENSE` (plus the bundled ASM license under
+  `META-INF/licenses/ASM`) are retained in the shaded jar.
 
 ### SQLite JDBC — Apache License 2.0
 - <https://github.com/xerial/sqlite-jdbc>
 - Copyright © the sqlite-jdbc authors (xerial.org).
 - Includes the SQLite database engine, which is in the public domain
   (<https://sqlite.org/copyright.html>).
-- Used as the embedded trace store.
+- Used as the embedded trace store. Its license files (`META-INF/maven/org.xerial/sqlite-jdbc/LICENSE`
+  and `LICENSE.zentus`) are retained in the shaded jar.
 
 ### Gson — Apache License 2.0
 - <https://github.com/google/gson>
@@ -44,6 +51,7 @@ notices are merged into the jar's `META-INF/NOTICE` at build time via the Maven 
 - `slf4j-api` (pulled in transitively by SQLite JDBC) and the `slf4j-nop` binding are bundled and
   relocated to `net.thewesthill.agent.shaded.slf4j` so the agent's logging stays self-contained and
   silent by default.
+- Its `META-INF/LICENSE.txt` (MIT) is retained in the shaded jar.
 
 ## License texts
 
