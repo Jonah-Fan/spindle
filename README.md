@@ -133,15 +133,18 @@ The annotation is a compile-time-only dependency — your application imports `s
 The following steps build Spindle from the source code in this repository.
 
 ## Installing dependencies
-Spindle builds with **Java 17+** and **Maven 3.9+**. Install a JDK 17 or later and Maven 3.9 or later, then verify:
+Spindle builds with **Java 17+**. The repository ships a Maven Wrapper (`mvnw`), so you do not need
+a system Maven — just a JDK 17 or later. Install it, then verify:
 
 ```bash
 java -version
-mvn -version
+./mvnw -version
 ```
 
 > [!TIP]
-> Maven fetches all build dependencies (ByteBuddy, SQLite JDBC, Gson, SnakeYAML, Spring Boot) automatically from Maven Central on first build, so no manual dependency installation is needed.
+> The wrapper downloads the pinned Maven 3.9.16 on first use, and Maven then fetches all build
+> dependencies (ByteBuddy, SQLite JDBC, Gson, SnakeYAML, Spring Boot) from Maven Central, so no
+> manual dependency installation is needed.
 
 ## Cloning the repository
 Clone this repository into your development directory.
@@ -155,7 +158,7 @@ cd spindle
 From the repository root, build every module:
 
 ```bash
-mvn clean verify
+./mvnw clean verify
 ```
 
 This compiles `spindle-api`, `spindle-agent`, and `spindle-demo`, runs the tests, then shades the agent and repackages the demo. CI builds on JDK 17 and 21 to cover both the supported minimum and current LTS.

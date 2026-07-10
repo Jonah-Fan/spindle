@@ -6,14 +6,15 @@ and the conventions every change should follow.
 ## Prerequisites
 
 - **Java 17 or later** (the project compiles with `--release 17`).
-- **Maven 3.9 or later**.
+- No system Maven required — the repository includes a Maven Wrapper (`mvnw`) pinned to Maven 3.9.16,
+  which downloads itself on first use.
 
 ## Build and test
 
 From the repository root:
 
 ```bash
-mvn -B -ntp clean verify
+./mvnw -B -ntp clean verify
 ```
 
 `verify` runs the unit tests and the integration smoke test. Please make sure the whole reactor is
@@ -23,7 +24,7 @@ If you changed POM files and want to exercise the release toolchain locally (enf
 jars) **without** uploading anything:
 
 ```bash
-mvn -B -ntp -P release clean package
+./mvnw -B -ntp -P release clean package
 ```
 
 ## Before you write code
