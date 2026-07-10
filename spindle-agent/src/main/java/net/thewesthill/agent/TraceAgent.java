@@ -137,7 +137,7 @@ public final class TraceAgent {
       try {
         resources.get(i).close();
       } catch (Throwable t) {
-        AgentLog.warn("failed to close resource: {}", resources.get(i).getClass().getSigners(), t);
+        AgentLog.warn("failed to close resource: {}", resources.get(i).getClass().getSimpleName(), t);
       }
     }
   }

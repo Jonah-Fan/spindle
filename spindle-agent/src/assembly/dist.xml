@@ -15,7 +15,7 @@
             <outputDirectory>.</outputDirectory>
             <includes>
                 <include>spindle-agent.jar</include>
-                <include>spindle-ctx.jar</include>
+                <include>spindle-agent-ctx.jar</include>
             </includes>
         </fileSet>
         <fileSet>

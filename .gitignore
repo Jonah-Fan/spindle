@@ -30,3 +30,6 @@ desktop.ini
 # ---- Maven release / dependency-reduced POM ----
 dependency-reduced-pom.xml
 release.properties
+
+# ---- Local planning / scratch docs (not for the repo) ----
+plans/

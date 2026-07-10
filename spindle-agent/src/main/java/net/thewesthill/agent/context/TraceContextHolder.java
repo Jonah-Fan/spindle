@@ -26,7 +26,7 @@ import java.util.concurrent.Callable;
  * trace.
  * <p>
  * <strong>Class-loading note.</strong> This class (and {@link TraceContext}) is packaged in a
- * separate zero-dependency {@code spindle-ctx.jar} and pushed to the bootstrap classloader via
+ * separate zero-dependency {@code spindle-agent-ctx.jar} and pushed to the bootstrap classloader via
  * {@code Boot-Class-Path}. This is required because the advice that triggers propagation —
  * {@link net.thewesthill.agent.advice.ThreadPoolAdvice} — is inlined into the bootstrap JDK class
  * {@code ThreadPoolExecutor}, whose classloader can only see bootstrap types. The main shaded jar

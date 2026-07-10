@@ -3,9 +3,9 @@ Spindle — attach quickstart
 
 This bundle ships two JARs that must sit next to each other:
 
-  spindle-agent.jar   attach with -javaagent
-  spindle-ctx.jar     bootstrap context JAR, referenced by the agent's
-                      manifest via Boot-Class-Path (do not rename or move)
+  spindle-agent.jar        attach with -javaagent
+  spindle-agent-ctx.jar    bootstrap context JAR, referenced by the agent's
+                           manifest via Boot-Class-Path (do not rename or move)
 
 Attach Spindle to any JVM:
 
