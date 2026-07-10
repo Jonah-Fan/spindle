@@ -48,7 +48,7 @@ Spindle is a JVM instrumentation agent built on [ByteBuddy](https://bytebuddy.ne
 Spindle is comprised of three Maven modules, each extending core functionality:
 
 - **`spindle-api`** — the zero-dependency tracing API. Application code depends on this alone for the `@Trace` annotation and related markers. It carries no ByteBuddy or SQLite dependencies, so it stays light on your application classpath.
-- **`spindle-agent`** — the JVM agent. Woven with ByteBuddy, it owns span collection (ThreadLocal stack), W3C Trace Context propagation, the SQLite reporter, and the embedded HTTP viewer. Builds to a shaded fat jar plus a tiny `spindle-ctx-ctx.jar` pushed to the bootstrap classloader for cross-thread context propagation.
+- **`spindle-agent`** — the JVM agent. Woven with ByteBuddy, it owns span collection (ThreadLocal stack), W3C Trace Context propagation, the SQLite reporter, and the embedded HTTP viewer. Builds to a shaded fat jar plus a tiny `spindle-ctx.jar` pushed to the bootstrap classloader for cross-thread context propagation.
 - **`spindle-demo`** — a Spring Boot application instrumented by the agent, exercising MVC, JDBC, thread-pool, and `@Trace` spans so you can see Spindle in action end to end.
 
 > [!TIP]
@@ -155,12 +155,12 @@ After a successful build, the artifacts land at:
 
 ```
 spindle-agent/target/spindle-agent.jar        # shaded agent jar (attach with -javaagent)
-spindle-agent/target/spindle-ctx-ctx.jar      # bootstrap context jar (referenced by Boot-Class-Path)
+spindle-agent/target/spindle-ctx.jar      # bootstrap context jar (referenced by Boot-Class-Path)
 spindle-demo/target/spindle-demo.jar         # runnable Spring Boot demo
 ```
 
 > [!IMPORTANT]
-> Do not delete `spindle-ctx-ctx.jar` — the agent manifest points at it via `Boot-Class-Path` so that a single `TraceContextHolder` class is shared across the bootstrap and application classloaders. Without it, cross-thread context propagation silently breaks.
+> Do not delete `spindle-ctx.jar` — the agent manifest points at it via `Boot-Class-Path` so that a single `TraceContextHolder` class is shared across the bootstrap and application classloaders. Without it, cross-thread context propagation silently breaks.
 
 ## Running and testing the demo
 Launch the demo with the agent attached:

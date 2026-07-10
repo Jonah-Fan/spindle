@@ -63,8 +63,8 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
+                            <finalName>spindle</finalName>
                             <classifier>ctx</classifier>
-                            <finalName>spindle-ctx</finalName>
                             <includes>
                                 <include>net/thewesthill/agent/context/TraceContextHolder.class</include>
                                 <include>net/thewesthill/agent/context/TraceContext.class</include>
@@ -94,6 +94,14 @@
                                         <exclude>META-INF/*.DSA</exclude>
                                         <exclude>META-INF/*.RSA</exclude>
                                         <exclude>module-info.class</exclude>
+                                        <!-- 多版本 JAR 里的 module-info（关键修复） -->
+                                        <exclude>META-INF/versions/*/module-info.class</exclude>
+                                        <!-- 可选：排除重叠的许可证/清单，减少警告噪音 -->
+                                        <exclude>META-INF/LICENSE</exclude>
+                                        <exclude>META-INF/LICENSE.txt</exclude>
+                                        <exclude>META-INF/NOTICE</exclude>
+                                        <exclude>META-INF/NOTICE.txt</exclude>
+                                        <exclude>META-INF/MANIFEST.MF</exclude>
                                     </excludes>
                                 </filter>
                                 <filter>
@@ -131,7 +139,7 @@
                                         <Can-Redefine-Classes>true</Can-Redefine-Classes>
                                         <Can-Retransform-Classes>true</Can-Retransform-Classes>
                                         <Can-Set-Native-Method-Prefix>true</Can-Set-Native-Method-Prefix>
-                                        <Boot-Class-Path>spindle-ctx-ctx.jar</Boot-Class-Path>
+                                        <Boot-Class-Path>spindle-ctx.jar</Boot-Class-Path>
                                     </manifestEntries>
                                 </transformer>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
