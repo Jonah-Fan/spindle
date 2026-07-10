@@ -203,16 +203,16 @@ Then open `http://localhost:8787/` in a browser. The output of the viewer's JSON
 # Configuration reference
 Spindle reads configuration from the `-javaagent:` argument string as `key=value` pairs separated by commas. All keys are optional; missing or malformed values fall back to defaults.
 
-| Key | Default | Description |
-|---|---|---|
-| `db` | `trace.db` | Path to the SQLite database file. |
-| `port` | `8787` | TCP port for the embedded HTTP viewer. |
-| `viewer` | `on` | Set to `off` to disable the viewer (spans still recorded). |
-| `config` | _(none)_ | Explicit path to an interceptor-rules YAML; overrides the lookup order. |
-| `logDir` | `./logs` | Directory for the rotating agent log files. |
-| `logLevel` | `info` | `debug`, `info`, `warn`, or `error`. |
-| `logSize` | `52428800` (50 MB) | Rotating log file size in bytes. |
-| `logCount` | `100` | Number of rotated log files to retain. |
+| Key        | Default            | Description                                                             |
+|------------|--------------------|-------------------------------------------------------------------------|
+| `db`       | `trace.db`         | Path to the SQLite database file.                                       |
+| `port`     | `8787`             | TCP port for the embedded HTTP viewer.                                  |
+| `viewer`   | `on`               | Set to `off` to disable the viewer (spans still recorded).              |
+| `config`   | _(none)_           | Explicit path to an interceptor-rules YAML; overrides the lookup order. |
+| `logDir`   | `./logs`           | Directory for the rotating agent log files.                             |
+| `logLevel` | `info`             | `debug`, `info`, `warn`, or `error`.                                    |
+| `logSize`  | `52428800` (50 MB) | Rotating log file size in bytes.                                        |
+| `logCount` | `100`              | Number of rotated log files to retain.                                  |
 
 The interceptor-rules YAML declares which methods to trace. In development the loader looks, in order, for an explicit `config=` path, then `./spindle-interceptors.yml` on disk, then `/spindle-interceptors.yml` on the classpath, finally the bundled `/defaults-interceptors.yml`. Production skips the on-disk lookups and uses only the explicit path or the bundled defaults.
 

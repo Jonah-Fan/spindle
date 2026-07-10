@@ -6,8 +6,8 @@ Spindle is pre-1.x. Security fixes are applied only to the latest release line.
 
 | Version | Supported |
 |---------|-----------|
-| 1.0.x   | ✅        |
-| < 1.0   | ❌        |
+| 1.0.x   | ✅         |
+| < 1.0   | ❌         |
 
 ## Reporting a vulnerability
 
