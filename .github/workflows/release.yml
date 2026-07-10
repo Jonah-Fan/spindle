@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write   # softprops/action-gh-release creates the release and uploads assets
+
+jobs:
+  release:
+    name: Build and publish GitHub Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Build (tests, sources, javadoc, shaded agent, dist zip)
+        run: ./mvnw -B -ntp -P release clean package
+
+      - name: Create GitHub Release and upload assets
+        uses: softprops/action-gh-release@v3.0.1
+        with:
+          generate_release_notes: true
+          files: |
+            spindle-agent/target/spindle-agent.jar
+            spindle-agent/target/spindle-agent-ctx.jar
+            spindle-agent/target/spindle-agent-sources.jar
+            spindle-agent/target/spindle-agent-javadoc.jar
+            spindle-agent/target/spindle-*.zip
+            spindle-api/target/spindle-api-*.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
