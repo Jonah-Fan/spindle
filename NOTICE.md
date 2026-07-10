@@ -22,8 +22,16 @@ those attributions in one place.
 - <https://bytebuddy.net/>
 - Copyright © 2014 – Present Rafael Winterhalter.
 - Bundled for runtime bytecode rewriting and relocated to `net.thewesthill.agent.shaded.bytebuddy`.
-- Its `META-INF/NOTICE` and `META-INF/LICENSE` (plus the bundled ASM license under
-  `META-INF/licenses/ASM`) are retained in the shaded jar.
+- Its `META-INF/NOTICE` and `META-INF/LICENSE` are retained in the shaded jar. ByteBuddy bundles
+  ASM for the actual bytecode rewriting; ASM carries a separate BSD 3-Clause license, retained at
+  `META-INF/licenses/ASM` (see the ASM entry below).
+
+### ASM — BSD 3-Clause License
+- <https://asm.ow2.io/>
+- Copyright © 2000–2011 INRIA, France Telecom.
+- The ASM bytecode manipulation framework is bundled *inside* ByteBuddy (it is not a separate
+  Maven dependency of Spindle). ByteBuddy's `META-INF/LICENSE` records the bundling, and ASM's own
+  BSD 3-Clause license text is retained in the shaded jar at `META-INF/licenses/ASM`.
 
 ### SQLite JDBC — Apache License 2.0
 - <https://github.com/xerial/sqlite-jdbc>
@@ -55,5 +63,8 @@ those attributions in one place.
 
 ## License texts
 
-The full texts of the Apache License 2.0 and the MIT License are available at
-<https://www.apache.org/licenses/LICENSE-2.0> and <https://opensource.org/licenses/MIT> respectively.
+The full texts of the Apache License 2.0, the MIT License, and the BSD 3-Clause License are
+available at <https://www.apache.org/licenses/LICENSE-2.0>,
+<https://opensource.org/licenses/MIT>, and <https://opensource.org/licenses/BSD-3-Clause>
+respectively. In the shaded jar the ByteBuddy/SQLite JDBC Apache 2.0 license, the SLF4J MIT
+license, and the ASM BSD license are each retained as shipped (see the entries above).
