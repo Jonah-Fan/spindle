@@ -36,6 +36,5 @@ jobs:
             spindle-agent/target/spindle-agent-sources.jar
             spindle-agent/target/spindle-agent-javadoc.jar
             spindle-agent/target/spindle-*.zip
-            spindle-api/target/spindle-api-*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
