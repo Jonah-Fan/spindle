@@ -1,14 +1,15 @@
 package net.thewesthill.agent.collector;
 
-import net.thewesthill.agent.context.TraceContext;
-import net.thewesthill.agent.context.TraceContextHolder;
-import net.thewesthill.agent.context.W3CPropagator;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
+
+import net.thewesthill.agent.context.TraceContext;
+import net.thewesthill.agent.context.TraceContextHolder;
+import net.thewesthill.agent.context.W3CPropagator;
 
 public final class SpanCollector {
 

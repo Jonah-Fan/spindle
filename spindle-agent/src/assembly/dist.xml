@@ -12,7 +12,7 @@
     <fileSets>
         <fileSet>
             <directory>${project.build.directory}</directory>
-            <outputDirectory></outputDirectory>
+            <outputDirectory>.</outputDirectory>
             <includes>
                 <include>spindle-agent.jar</include>
                 <include>spindle-ctx.jar</include>
@@ -20,7 +20,7 @@
         </fileSet>
         <fileSet>
             <directory>${project.basedir}/src/assembly</directory>
-            <outputDirectory></outputDirectory>
+            <outputDirectory>.</outputDirectory>
             <includes>
                 <include>USAGE.txt</include>
             </includes>

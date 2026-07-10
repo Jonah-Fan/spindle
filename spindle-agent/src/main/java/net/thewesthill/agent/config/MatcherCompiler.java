@@ -1,5 +1,8 @@
 package net.thewesthill.agent.config;
 
+import static net.bytebuddy.matcher.ElementMatchers.isInterface;
+import static net.bytebuddy.matcher.ElementMatchers.not;
+
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.agent.builder.AgentBuilder.LocationStrategy;
 import net.bytebuddy.agent.builder.AgentBuilder.Transformer.ForAdvice;
@@ -15,9 +18,6 @@ import net.thewesthill.agent.config.compiler.DefaultMethodMatcherCompiler;
 import net.thewesthill.agent.config.compiler.MethodMatcherCompiler;
 import net.thewesthill.agent.config.compiler.util.MatcherUtils;
 import net.thewesthill.agent.log.AgentLog;
-
-import static net.bytebuddy.matcher.ElementMatchers.isInterface;
-import static net.bytebuddy.matcher.ElementMatchers.not;
 
 /**
  * Compiles a single {@link InterceptorRule} into a ByteBuddy type matcher plus advice transformer.

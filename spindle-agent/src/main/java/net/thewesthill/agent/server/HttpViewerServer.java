@@ -9,13 +9,14 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import net.thewesthill.agent.collector.SpanEvent;
-import net.thewesthill.agent.log.AgentLog;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+
+import net.thewesthill.agent.collector.SpanEvent;
+import net.thewesthill.agent.log.AgentLog;
 
 /**
  * Embedded HTTP viewer that serves the recorded traces from the SQLite database.
@@ -117,7 +118,7 @@ public final class HttpViewerServer implements AutoCloseable {
     }
     for (String pair : q.split("&")) {
       String[] kv = pair.split("=", 2);
-      if (kv.length == 2 && kv[0].equals("limit")) {
+      if (kv.length == 2 && "limit".equals(kv[0])) {
         try {
           return Math.max(1, Math.min(Integer.parseInt(kv[1]), 1000));
         } catch (NumberFormatException ignored) {
@@ -300,7 +301,7 @@ public final class HttpViewerServer implements AutoCloseable {
     @Override
     public void handle(HttpExchange ex) throws IOException {
       String path = ex.getRequestURI().getPath();
-      if (prefix.equals("/") && !path.equals("/")) {
+      if ("/".equals(prefix) && !"/".equals(path)) {
         respond(ex, 404, "text/plain", "not found");
         return;
       }

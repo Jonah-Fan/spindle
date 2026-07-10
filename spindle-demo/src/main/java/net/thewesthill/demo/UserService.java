@@ -1,8 +1,9 @@
 package net.thewesthill.demo;
 
-import net.thewesthill.trace.Trace;
-import org.springframework.lang.NonNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
+
+import net.thewesthill.trace.Trace;
 
 @Service
 public class UserService {
