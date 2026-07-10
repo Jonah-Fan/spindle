@@ -1,0 +1,25 @@
+name: Feature request
+description: Suggest an enhancement or new capability for Spindle
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: The use case or pain point. What can't you do today, or what's harder than it should be?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: What would you like Spindle to do instead?
+      description: A description of the desired behavior. If you have ideas for how it could work (a config key, an interceptor rule, an annotation), sketch them here.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any workarounds you tried or other approaches you considered.

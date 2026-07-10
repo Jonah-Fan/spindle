@@ -1,0 +1,58 @@
+name: Bug report
+description: Report a problem with the Spindle agent
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug. If you suspect a security vulnerability, please
+        **do not** use this form — follow the private reporting process in
+        [SECURITY.md](https://github.com/Jonah-Fan/spindle/blob/master/SECURITY.md) instead.
+
+  - type: input
+    id: version
+    attributes:
+      label: Spindle version
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: java
+    attributes:
+      label: Java version
+      placeholder: "17.0.2"
+    validations:
+      required: true
+
+  - type: input
+    id: agent-args
+    attributes:
+      label: "-javaagent arguments"
+      placeholder: "viewer=off,db=/tmp/trace.db"
+      description: The `key=value,...` string you passed after the agent jar.
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A description of the problem and its impact. What did you expect, and what did you see?
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Startup log lines
+      description: The relevant `[spindle] ...` log lines from when the problem occurred. Paste them inside triple backticks.
+      render: shell
+
+  - type: textarea
+    id: reproducer
+    attributes:
+      label: Minimal reproducer
+      description: The smallest set of steps (or code) that triggers the problem.
+    validations:
+      required: true
