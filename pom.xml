@@ -73,7 +73,7 @@
     <maven.failsafe.plugin.version>3.2.5</maven.failsafe.plugin.version>
 
     <junit.version>6.1.1</junit.version>
-    <assertj.version>3.27.3</assertj.version>
+    <assertj.version>3.27.7</assertj.version>
   </properties>
 
   <dependencyManagement>
